@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{title}} :: {{ block.super }}{% endblock %}
+{% block content %}
+
+<section class="bg-text-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+<!--                        <div class="bg-text">-->
+
+
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<section class="blog-post-area">
+            <div class="container">
+                <div class="row">
+                    <div class="blog-post-area-style">
+                            <div class="col-md-12">
+                            </div>
+                            {% for coin in coins %}
+                            <div class="col-md-3">
+                                <div class="single-post">
+                                    {% if coin.photo %}
+                                    <img src="{{coin.photo.url}}" alt="coin.number_rublev">
+                                    {% else %}
+                                    <img src="https://www.onlinewebfonts.com/icon/391144" alt="coin.number_rublev" width="300">
+                                    {% endif %}
+
+                                    <h4>Рублев №: <a href="{{coin.get_absolute_url}}">{{coin.number_rublev}}</a></h4>
+                                    <h4>Сотникова №: {{coin.number_sot}}</h4>
+                                    <h4>Тип:  <a href="{{coin.type.get_absolute_url}}">{{coin.type.title}}</a></h4>
+                                    <h4>Вес, гр: {{coin.weight}}</h4>
+                                    <h4>Размер, мм: {{coin.size}}</h4>
+                                    <h4>Металл: {{coin.metal_composition}}</h4>
+                                    <h4>Публикация: {{coin.publication}}</h4>
+                                    <h4>Провенанс: {{coin.provenance|safe}}</h4>
+
+                                </div>
+                            </div>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+                 {% if page_obj.has_other_pages %}
+            <div class="pegination">
+                <div class="nav-links">
+
+                 {% if page_obj.has_previous %}
+                 <a class="page-numbers" href="?page={{page_obj.previous_page_number }}" tabindex="-1"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                 {% endif %}
+
+                 {% for p in page_obj.paginator.page_range %}
+                 {% if page_obj.number == p %}
+                 <span class="page-numbers current" href="?page={{ p }}">{{ p }}</span>
+                 {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                      <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+                    {% endif %}
+
+
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <a class="page-numbers" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    {% endif %}
+
+                </div>
+            </div>
+      {% endif %}
+
+        </section>
+
+{% endblock %}

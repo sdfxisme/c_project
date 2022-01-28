@@ -1,0 +1,10 @@
+<div class="{{ menu_class }}">
+      <ul>
+          {% for item in emitents %}
+          <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+          {% endfor %}
+          <li><a href="{% url 'coin1' %}">Пoиск</a></li>
+          <li><a href="{% url 'sale' %}">Продажа</a></li>
+
+      </ul>
+</div>

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sidebar %}
+{% block title %} {{coin.number_rublev}} :: {{ block.super }}{% endblock %}
+{% block content %}
+
+<section class="single-blog-area">
+            <div class="container">
+                <div class="row">
+                   <div class="col-md-12">
+                    <div class="border-top">
+                        <div class="col-md-8">
+                        <div class="blog-area">
+                            <div class="blog-area-part">
+                                <h2>{{ coin.number_rublev }}</h2>
+                                <h4>{{ coin.emitent }}</h4>
+                                <div class ="single-content">
+                                {% if coin.photo %}
+                                    <img src="{{coin.photo.url}}" alt="coin.number_rublev">
+                                    {% else %}
+                                    <img src="https://www.onlinewebfonts.com/icon/391144" alt="coin.number_rublev" width="300">
+                                    {% endif %}
+
+                                    <div>
+
+
+                                 <h4>Тип:  <a href="{{coin.type.get_absolute_url}}">{{coin.type.title}}</a></h4>
+
+                                {% if coin.tags.exists %}
+                                <h4>
+                                    Признаки:
+                                    {% for tag in coin.tags.all %}
+                                    <a href="{{tag.get_absolute_url}}">{{tag.title}}</a>
+                                    {% endfor %}
+                                </h4>
+                                {% endif %}
+                                <div class="single-content">
+                                    <h4>Штемпельная пара №: {{coin.dies_number}}</h4>
+                                    <h4>Рублев №: {{coin.number_rublev}}</h4>
+                                    <h4>Сотникова №: {{coin.number_sot}}</h4>
+                                    <h4>Вес, гр: {{coin.weight}}</h4>
+                                    <h4>Размер, мм: {{coin.size}}</h4>
+                                    <h4>Металл: {{coin.metal_composition}}</h4>
+                                    <h4>Публикация: {{coin.publication}}</h4>
+
+                                    <h4>Views: {{coin.views}}</h4>
+                                    <h4>Провенанс: {{coin.provenance|safe}}</h4>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    </div>
+                    </div>
+                </div>
+                    <div class="col-md-4">
+
+                        <div class="newsletter">
+                            <h2 class="sidebar-title">Поиск по номеру</h2>
+                            <form action="{% url 'search' %}" method="get">
+                                <input type="text" name="s" placeholder="например, v.1.1">
+                                <input type="submit" value="Search">
+                            </form>
+                        </div>
+
+                            {% get_tags %}
+
+
+                    </div>
+            </div>
+        </section>
+{% endblock %}
